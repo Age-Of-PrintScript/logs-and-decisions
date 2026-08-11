@@ -1,0 +1,17 @@
+### Logs del 10-08
+
+- Desacoplamos los builders de la lógica del cambio de estados (autómatas) tanto para el lexer como para el parser.
+- Expandimos el dominio de nuestro lenguaje, agregando errores de parseo y dejando de lado las exceptions feas.
+- Llevamos a cabo el desacoplamiento del armado de la expression por sobre la lógica del manejo de estados del parser.
+- Corregimos incongruencias entre branches del expression parser y el nuevo manejo de errores de parseo.
+
+## TODO()
+
+- [ ] Corregir los comments que hizo Copilot (Facu)
+- [ ] Revisar mi PR e idealmente mergear (Luli y Nacho)
+- [ ] Terminar el lexer (Luli)
+- [ ] Pensar interpreter (todos)
+- [ ] Hacer interpreter
+- [ ] Hacer tests para lexer
+- [ ] Hacer tests para parser (si se puede crear el mini framework épico)
+- [ ] Hacer tests para interpreter (estamos muy lejos todavía)
