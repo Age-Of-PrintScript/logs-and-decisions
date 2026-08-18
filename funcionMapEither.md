@@ -49,7 +49,7 @@ when (result) {
   }
           
 ```
-Basicamente, cada vez que llego a la rama Failure quiero cortar la funcion tokenize dentro del cual está ese codigo. Eso se repite para los 3 when. De la misma forma, si es un Success quiero simplemente usar ese valor. Para eliminar esta repetición, sirve el getOrReturn.
+Basicamente, cada vez que llego a la rama Failure quiero cortar la funcion tokenize (dentro del cual está ese código). Eso se repite para los 3 when. De la misma forma, si es un Success quiero simplemente usar ese valor. Para eliminar esta repetición, sirve el getOrReturn.
 
 
 Entonces, lo que hace la funcion es: 
