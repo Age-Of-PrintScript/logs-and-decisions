@@ -1,5 +1,5 @@
-## Historial de decisiones
-### Interfaz
+# Historial de decisiones
+## Interfaz
 Parser y automata interno. Expone: 
 ```kotlin
 interface Parser {
@@ -7,8 +7,13 @@ interface Parser {
 }
 ```
 
-### Aparición de un automata nuevo para el parser
+## Automata
+### Versión 2
 
+<img width="637" height="461" alt="image" src="https://github.com/user-attachments/assets/3990ee0f-15e0-436f-9f51-bb47735d1a1a" />
+
+
+### Versión 1
 Dado el "lenguaje de TOKENS":
 
 <img width="780" height="61" alt="image" src="https://github.com/user-attachments/assets/cfaf40fe-689c-4f0b-b8c2-aebfa88f71da" />
