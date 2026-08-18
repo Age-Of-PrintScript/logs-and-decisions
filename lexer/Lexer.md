@@ -1,10 +1,16 @@
 # Historial de decisiones
 ## Automata
+### Versión 3
+- Juntamos todos los caracteres que no requerian consumir mas caracteres para ser tokenizados
+- Agregamos una rama para tokenizar los 'whitespace' (incluye espacios, tabs y enter) para que nuestro automata no los rechaze (ya que son caracteres aceptados por nuestro vocabulario)
+  
+  <img width="741" height="467" alt="image" src="https://github.com/user-attachments/assets/eb6edceb-d33a-4ee9-b762-762257287851" />
+
 ### Versión 2
 - Separamos el type del colon y lo pusimos en la rama de 'keyword'
 - Agregamos parentesis en la rama de 'operator'
 
-<img width="757" height="517" alt="image" src="https://github.com/user-attachments/assets/f48d22e6-1b8c-4027-b100-80acc5fe36ca" />
+  <img width="757" height="517" alt="image" src="https://github.com/user-attachments/assets/f48d22e6-1b8c-4027-b100-80acc5fe36ca" />
 
 Ese es el estado actual. ⚠️ Queda pensar bien:
 - Tema de los parentesis si lo vamos a dejar así o de otra forma
@@ -25,8 +31,6 @@ Basicamente esta es la idea principal de como "funcionaría" el lexer.
   Con esto generaríamos una lista de tokens del estilo
 ```[LET, IDENTIFIER(x), COLON, NUMBER, ASIGNMENT, VALUE(5), SEMICOLON]```
 
-💡 Basicamente esto sería la salida del lexer. Una lista de tokens
+  💡 Basicamente esto sería la salida del lexer. Una lista de tokens:
 
-
-
-  <img width="868" height="614" alt="image" src="https://github.com/user-attachments/assets/b0fe42bc-909f-47dd-8a81-ba71213fabc6" />
+    <img width="868" height="614" alt="image" src="https://github.com/user-attachments/assets/b0fe42bc-909f-47dd-8a81-ba71213fabc6" />
