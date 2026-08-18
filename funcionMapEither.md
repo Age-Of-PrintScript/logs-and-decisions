@@ -49,5 +49,27 @@ when (result) {
   }
           
 ```
-Basicamente, cada vez que llego a la rama Failure quiero cortar el for dentro del cual está ese codigo. Eso se repite para los 3 when. De la misma forma, 
-si es un Success quiero simplemente usar ese valor. Para eliminar esta repeticion, sirve el getOrReturn.
+Basicamente, cada vez que llego a la rama Failure quiero cortar la funcion tokenize dentro del cual está ese codigo. Eso se repite para los 3 when. De la misma forma, si es un Success quiero simplemente usar ese valor. Para eliminar esta repetición, sirve el getOrReturn.
+
+
+Entonces, lo que hace la funcion es: 
+- Si es un Success -> devuelve el valor del Success
+- Si el resultado es un Failure -> corta tokenize (no solo getOrReturn)
+
+  Como hace esto?
+  
+  Si el resultado es un Failure, se ejecuta la funcion lambda onFailure:
+      ```
+      { return Failure(it) }
+      ```
+  Esta función recibe el valor de error y retorna un **Nothing**. Este Nothing lo que hace es avisarle al compilador que nunca va a devolver un valor "normal", siempre va a terminar con un return (osea el return solo, que corta la funcion donde está escrito ese return) o con una excepción. Así, evita el problema con el return type **R** de la función.
+
+  Ahora, para cortar tokenize (no solo getOrReturn), necesita la keyword **inline**. Esta palabra lo que hace es que, al momento de compilar la función, "copia" el codigo que está adentro del getOrReturn en donde es llamada. Eso lo que implica es que el codigo se "transforma" en:
+  ```
+  val temp = state.consume(chr)
+    when (temp) {
+        is Failure -> return Failure(temp.value) 
+        is Success -> temp.value
+    }
+  ```
+    Entonces el return de la lamda es como si estuviera directamente adentro de tokenize, y por ende corta la funcion.
