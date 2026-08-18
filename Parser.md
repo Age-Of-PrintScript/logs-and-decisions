@@ -1,3 +1,12 @@
+## Historial de decisiones
+### Interfaz
+Parser y automata interno. Expone: 
+```kotlin
+interface Parser {
+    fun parse(tokens: List<Token>): Program
+}
+```
+
 ### Aparición de un automata nuevo para el parser
 
 Dado el "lenguaje de TOKENS":
@@ -15,3 +24,4 @@ En escencia:
   por lo que por ahora tiene sentido es que en el flujo de codigo. el "automata" llame a otro componente que recursivamente
   pueda crear el arbol de ejecución de esa operación (ya que el automata finito no lo permite y pasar a un automata de pila
   es mas lío)
+  
