@@ -1,4 +1,11 @@
 # Historial de decisiones
+## Interfaz
+Toda la logica interna del lexer, del automata, etc. Expone la interfaz:
+```kotlin
+interface Lexer {
+    fun tokenize(source: String): List<Token>
+}
+```
 ## Automata
 ### Versión 3
 - Juntamos todos los caracteres que no requerian consumir mas caracteres para ser tokenizados
