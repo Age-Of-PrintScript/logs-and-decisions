@@ -1,7 +1,10 @@
 # Flujo general
-Hay dos suites de tests: una principal que testea el parser completo, y otra que testea la resolución de expresiones aritméticas por separado.
-## Suite principal: tests data-driven con archivos markdown
-Cada test vive en un archivo .md dentro de parser/src/test/resources/parserTests/ (hay 30). El framework lee todos los archivos, y cada archivo = un test dinámico.
+Hay dos tipos de tests: uno principal que testea el parser completo, y otro que testea la resolución de expresiones aritméticas por separado.
+## Tests parser end-to-end
+Cada test vive en un archivo .md dentro de parser/src/test/resources/parserTests/ 
+
+El framework lee todos los archivos, y cada archivo = un test dinámico.
+
 Cada .md tiene dos secciones:
 1. \# Input — una lista de tokens descritos en texto, uno por línea. Por ejemplo:
    
@@ -14,19 +17,23 @@ Cada .md tiene dos secciones:
     NUMBER LITERAL: 5
     SEMICOLON
    ```
-3. \# Expected: SUCCESS o \# Expected: FAILURE — el AST esperado (con notación de indentación) o el nombre de un error (ej: MISSING_IDENTIFIER).
+3. \# Expected: SUCCESS  o  \# Expected: FAILURE — el AST esperado o el nombre de un error (ej: MISSING_IDENTIFIER).
+      ```
+         DECLARATION
+            X
+            NUMBER
+            LITERAL NUMBER 5
+      ```
 
 El flujo de cada test es:
 Tokens en texto → Token reales → se pasan al Parser → se compara el resultado (AST o SyntaxError) contra lo esperado.
 No se usa el lexer. Los tests le llegan directo como tokens al parser, para aislarlo.
 
-## Suite secundaria: tests del solver de expresiones
-Esta suite es independiente. Construye objetos Expression (nodos del AST) directamente en Kotlin sin pasar por tokens ni parser, y verifica que el evaluador aritmético devuelva el número correcto.
+## Tests del expression solver
+Estos tests son independientes. Construyen objetos Expression (nodos del AST) sin pasar por tokens ni parser, y verifica que el expression solver devuelva el número correcto.
 
-Conveniones clave
+## Convenciones clave
 - Separar datos de lógica: agregar un test nuevo es solo crear un .md, no tocar código.
 - Comparación estructural completa: se compara todo el AST, no solo partes.
 - Posiciones dummy: todos los tokens de test tienen posición (0,0) porque no se testea eso.
 - Errores como enum: los casos de fallo solo nombran el valor de SyntaxError esperado.
-En resumen: los tests prueban el parser alimentándole tokens directamente (sin lexer) y comparando el AST resultado contra una representación textual en markdown. Los errores se validan matcheando contra un enum. Los tests de expresiones son un mundo aparte que evalúa aritmética construyendo nodos del AST a mano.
-▣  Plan · Big Pickle · 2m 25s
