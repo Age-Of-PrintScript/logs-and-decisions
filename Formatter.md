@@ -1,10 +1,9 @@
 # Historial de decisiones
 ## Idea Inicial
-El formatter va a usar la salida del parser para ver la estructura del programa. En base a eso, va a reesribir el codigo fuente, pero con un formato especifico.
-Por ende, va a tener que reconstruir cada linea de codigo dentro de un archivo. Cada linea seria un AST, y en base a que tipo es, que palabras se agregan 
-(por ejemplo el Let en la Declaration). Ademas, el formatter se va a tener que asegurar que ciertas reglas sean cumplidas. 
+El formatter va a usar la salida del parser para ver la estructura del programa. En base a eso, va a reesribir el código fuente, pero con un formato especifico.
+Por ende, va a tener que reconstruir cada linea de código dentro de un archivo. Cada linea seria un AST, y en base a que tipo es, que palabras se agregan (por ejemplo el Let en la Declaration). Ademas, el formatter se va a tener que asegurar que ciertas reglas sean cumplidas. 
 
-Algunas son opcionales, y para eso se va a definir un json de estilo:
+Algunas son configurables, y para eso se va a definir un json mas o menos asi:
 ```
 rules {
   space_before_colon: true,
