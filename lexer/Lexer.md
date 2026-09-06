@@ -6,7 +6,16 @@ interface Lexer {
     fun tokenize(source: String): List<Token>
 }
 ```
+## TokenBuilder dinamico
+
+
+Al lexer le inyectamos mapas de que simbolos/keywords tokenizar:
+- Map<String, TokenType> keywords
+- Map<String, TokenType> symbols
+Esto hace que el lexer pase a ser dinamico, funcionando independientemente de que mapas se le pase. Esto hace mas facil la implementación de la nueva version de printscipt, y nuevas versiones futuras.
+
 ## Automata
+
 ### Versión 3
 - Juntamos todos los caracteres que no requerian consumir mas caracteres para ser tokenizados
 - Agregamos una rama para tokenizar los 'whitespace' (incluye espacios, tabs y enter) para que nuestro automata no los rechaze (ya que son caracteres aceptados por nuestro vocabulario)
