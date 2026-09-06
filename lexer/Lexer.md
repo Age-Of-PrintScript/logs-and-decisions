@@ -12,6 +12,7 @@ interface Lexer {
 Al lexer le inyectamos mapas de que simbolos/keywords tokenizar:
 - Map<String, TokenType> keywords
 - Map<String, TokenType> symbols
+  
 Esto hace que el lexer pase a ser dinamico, funcionando independientemente de que mapas se le pase. Esto hace mas facil la implementación de la nueva version de printscipt, y nuevas versiones futuras.
 
 ## Automata
