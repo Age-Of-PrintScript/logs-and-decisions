@@ -18,9 +18,9 @@ Ahora el Lexer es 100% genérico y desacoplado del domain:
 ### Tokens simplificados
 - `Literal`: ahora guarda el valor y su `PSType` directo (`Literal("hola", StrType)` o `Literal("123", NumType)`).
 - Como el lexer ya sabe por su autómata si está leyendo comillas (`StringState`) o números (`NumberState`), le asigna el tipo fundamental directamente al comenzar a leer el token
-    En el token builder, ya se diferencia el primer caracter agregado al token cuando hace `if(type == null)`. Entonces ahi, y solo ahi, se le pondria el tipo al literal. 
+    - En el token builder, ya se diferencia el primer caracter agregado al token cuando hace `if(type == null)`. Entonces ahi, y solo ahi, se le pondria el tipo al literal. 
 - Si en el futuro agregamos `boolean` (para 1.1), simplemente entra por el mapa de keywords (`"true" to Literal("true", BoolType)`) sin tener que tocar una sola línea del autómata del Lexer.
-    En este caso, el boolean `true` o `false` entraria en el camino del identifier, y se construiria como identifier hasta el final, donde se fija si la palabra pertenece al keyword map, y ahi le asigna al token el tipo de esa keyword
+    - En este caso, el boolean `true` o `false` entraria en el camino del identifier, y se construiria como identifier hasta el final, donde se fija si la palabra pertenece al keyword map, y ahi le asigna al token el tipo de esa keyword
 
 ## TokenBuilder dinamico
 
