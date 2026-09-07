@@ -6,8 +6,23 @@ interface Lexer {
     fun tokenize(source: String): List<Token>
 }
 ```
-## TokenBuilder dinamico
+## Refactor v1.0 / Inyección de Configuración
 
+### ¿Qué cambiamos?
+Antes el Lexer usaba directamente los enums viejos de `domain/Rules.kt` (como `PrintScriptSymbols`, `PrintScriptFunctions`, etc.) para saber qué palabras y símbolos existían.
+
+Ahora el Lexer es 100% genérico y desacoplado del domain:
+- Le inyectamos `v1_0keywords` (`Map<String, TokenType>`) con palabras como `"let"`, `"println"`, `"number"`, `"string"`.
+- Le inyectamos `v1_0Symbols` (`Map<Char, TokenType>`) con caracteres como `'+'`, `'-'`, `':'`, `';'`, `'='`, `(`, `)`, etc.
+
+### Tokens simplificados
+- `Literal`: ahora guarda el valor y su `PSType` directo (`Literal("hola", StrType)` o `Literal("123", NumType)`).
+- Como el lexer ya sabe por su autómata si está leyendo comillas (`StringState`) o números (`NumberState`), le asigna el tipo fundamental directamente al comenzar a leer el token
+    En el token builder, ya se diferencia el primer caracter agregado al token cuando hace `if(type == null)`. Entonces ahi, y solo ahi, se le pondria el tipo al literal. 
+- Si en el futuro agregamos `boolean` (para 1.1), simplemente entra por el mapa de keywords (`"true" to Literal("true", BoolType)`) sin tener que tocar una sola línea del autómata del Lexer.
+    En este caso, el boolean `true` o `false` entraria en el camino del identifier, y se construiria como identifier hasta el final, donde se fija si la palabra pertenece al keyword map, y ahi le asigna al token el tipo de esa keyword
+
+## TokenBuilder dinamico
 
 Al lexer le inyectamos mapas de que simbolos/keywords tokenizar:
 - Map<String, TokenType> keywords
@@ -52,16 +67,3 @@ Basicamente esta es la idea principal de como "funcionaría" el lexer.
 
     <img width="868" height="614" alt="image" src="https://github.com/user-attachments/assets/b0fe42bc-909f-47dd-8a81-ba71213fabc6" />
 
-## Refactor v1.0 / Inyección de Configuración
-
-### ¿Qué cambiamos?
-Antes el Lexer usaba directamente los enums viejos de `domain/Rules.kt` (como `PrintScriptSymbols`, `PrintScriptFunctions`, etc.) para saber qué palabras y símbolos existían.
-
-Ahora el Lexer es 100% genérico y desacoplado del domain:
-- Le inyectamos `v1_0keywords` (`Map<String, TokenType>`) con palabras como `"let"`, `"println"`, `"number"`, `"string"`.
-- Le inyectamos `v1_0Symbols` (`Map<Char, TokenType>`) con caracteres como `'+'`, `'-'`, `':'`, `';'`, `'='`, `(`, `)`, etc.
-
-### Tokens simplificados
-- `Literal`: ahora guarda el valor y su `PSType` directo (`Literal("hola", StrType)` o `Literal("123", NumType)`).
-- Como el lexer ya sabe por su autómata si está leyendo comillas (`StringState`) o números (`NumberState`), le asigna el tipo fundamental directamente al cerrar el token.
-- Si en el futuro agregamos `boolean` (para 1.1), simplemente entra por el mapa de keywords (`"true" to Literal("true", BoolType)`) sin tener que tocar una sola línea del autómata del Lexer.
